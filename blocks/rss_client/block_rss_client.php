@@ -313,13 +313,11 @@
         // Fetch all site feeds.
         $rs = $DB->get_recordset('block_rss_client');
         $counter = 0;
-        mtrace('');
         foreach ($rs as $rec) {
-            mtrace('    ' . $rec->url . ' ', '');
 
             // Skip feed if it failed recently.
             if ($starttimesec < $rec->skipuntil) {
-                mtrace('skipping until ' . userdate($rec->skipuntil));
+                mtrace("{$rec->url} ... skipping until " . userdate($rec->skipuntil));
                 continue;
             }
 
@@ -340,9 +338,9 @@
                 $rec->skiptime = $this->calculate_skiptime($rec->skiptime);
                 $rec->skipuntil = time() + $rec->skiptime;
                 $DB->update_record('block_rss_client', $rec);
-                mtrace("Error: could not load/find the RSS feed - skipping for {$rec->skiptime} seconds.");
+                mtrace ("{$rec->url} ... Error: could not load/find the RSS feed - skipping for {$rec->skiptime} seconds.");
             } else {
-                mtrace ('ok');
+                mtrace ("{$rec->url} ... OK");
                 // It worked this time, so reset the skiptime.
                 if ($rec->skiptime > 0) {
                     $rec->skiptime = 0;
