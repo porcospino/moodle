@@ -338,9 +338,9 @@
                 $rec->skiptime = $this->calculate_skiptime($rec->skiptime);
                 $rec->skipuntil = time() + $rec->skiptime;
                 $DB->update_record('block_rss_client', $rec);
-                mtrace ("{$rec->url} ... Error: could not load/find the RSS feed - skipping for {$rec->skiptime} seconds.");
+                mtrace ("    {$rec->url} ... Error: could not load/find the RSS feed - skipping for {$rec->skiptime} seconds.");
             } else {
-                mtrace ("{$rec->url} ... OK");
+                mtrace ("    {$rec->url} ... OK");
                 // It worked this time, so reset the skiptime.
                 if ($rec->skiptime > 0) {
                     $rec->skiptime = 0;
