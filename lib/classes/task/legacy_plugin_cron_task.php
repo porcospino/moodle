@@ -117,7 +117,7 @@ class legacy_plugin_cron_task extends scheduled_task {
                     $classname = '\\block_'.$block->name;
                     $blockobj = new $classname;
                     if (method_exists($blockobj, 'cron')) {
-                        mtrace("Processing cron function for ".$block->name.'....', '');
+                        mtrace("Processing cron function for ".$block->name.'....');
                         if ($blockobj->cron()) {
                             $DB->set_field('block', 'lastcron', $timenow, array('id' => $block->id));
                         }
